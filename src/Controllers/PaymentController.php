@@ -25,7 +25,6 @@ use Plenty\Modules\Basket\Contracts\BasketRepositoryContract;
 use Novalnet\Services\PaymentService;
 use Plenty\Plugin\Templates\Twig;
 use Plenty\Plugin\ConfigRepository;
-use Plenty\Plugin\Log\Loggable;
 
 /**
  * Class PaymentController
@@ -34,7 +33,6 @@ use Plenty\Plugin\Log\Loggable;
  */
 class PaymentController extends Controller
 { 
-    use Loggable;
     /**
      * @var Request
      */
