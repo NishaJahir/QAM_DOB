@@ -3,7 +3,7 @@ $(document).ready( function() {
     var max_year = current_date.getFullYear() - 18;
     var min_year = current_date.getFullYear() - 91;    
       
-    $("#nn_guarantee_date").on("keypress keyup",function (e)
+    $("#nn_guarantee_date").on("input",function (e)
     {
         var exp = String.fromCharCode(e.which);  
         if ( isNaN( exp ) )
