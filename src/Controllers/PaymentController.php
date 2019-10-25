@@ -172,7 +172,8 @@ class PaymentController extends Controller
             $guranteeStatus = $this->paymentService->getGuaranteeStatus($this->basketRepository->load(), $requestData['paymentKey']);                        
             
             if('guarantee' == $guranteeStatus)
-            {        
+            {    
+                $birthday = sprintf('%4d-%02d-%02d',$requestData['nn_guarantee_year'],$requestData['nn_guarantee_month'],$requestData['nn_guarantee_date']);
                 $force_status = ( $requestData['paymentKey'] == 'NOVALNET_SEPA' ) ? 'Novalnet.novalnet_sepa_payment_guarantee_force_active' : 'Novalnet.novalnet_invoice_payment_guarantee_force_active';               
                 
                 // Proceed as Normal Payment if condition for birthdate doesn't meet as well as force is enable    
@@ -205,11 +206,11 @@ class PaymentController extends Controller
                     if( $requestData['paymentKey'] == 'NOVALNET_SEPA' ) {
                     $serverRequestData['data']['payment_type'] = 'GUARANTEED_DIRECT_DEBIT_SEPA';
                     $serverRequestData['data']['key']          = '40';
-                    $serverRequestData['data']['birth_date']   = sprintf('%4d-%02d-%02d',$requestData['nn_guarantee_year'],$requestData['nn_guarantee_month'],$requestData['nn_guarantee_date']);
+                    $serverRequestData['data']['birth_date']   = $birthday;
                     } else {                        
                     $serverRequestData['data']['payment_type'] = 'GUARANTEED_INVOICE';
                     $serverRequestData['data']['key']          = '41';
-                    $serverRequestData['data']['birth_date']   = sprintf('%4d-%02d-%02d',$requestData['nn_guarantee_year'],$requestData['nn_guarantee_month'],$requestData['nn_guarantee_date']);                           
+                    $serverRequestData['data']['birth_date']   = $birthday;
                     }
                 }
             }
