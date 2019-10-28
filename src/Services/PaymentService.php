@@ -225,7 +225,10 @@ class PaymentService
                     
                     $requestData['order_status'] = trim($this->config->get('Novalnet.novalnet_onhold_confirmation_status'));
                     $requestData['paid_amount'] = 0;
-                } 
+                } elseif(isset($requestData['forced_onhold']) && !empty($requestData['forced_onhold'])) {
+					$requestData['order_status'] = trim($this->config->get('Novalnet.novalnet_forced_onhold_order_status'));
+                    $requestData['paid_amount'] = 0;
+				}
             else {
                     $requestData['order_status'] = trim($this->config->get('Novalnet.'. $requestData['payment_method'] .'_order_completion_status'));
                     $requestData['paid_amount'] = ($requestData['tid_status'] == '100') ? $requestData['amount'] : '0';
