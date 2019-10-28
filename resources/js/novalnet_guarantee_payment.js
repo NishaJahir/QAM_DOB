@@ -145,7 +145,7 @@ $(document).ready( function() {
         }
         
         if($("#nn_guarantee_month").val() == '0' ) {
-        alert($("#nn_dob_month").val());
+        alert($("#nn_dob_invalid").val());
         $('#novalnet_form_btn').attr('disabled',false);
             return false;
         }
