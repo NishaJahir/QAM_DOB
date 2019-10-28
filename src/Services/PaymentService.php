@@ -160,7 +160,8 @@ class PaymentService
         $nnPaymentData['order_no']       = $this->sessionStorage->getPlugin()->getValue('nnOrderNo');
         $nnPaymentData['mop']            = $this->sessionStorage->getPlugin()->getValue('mop');
         $nnPaymentData['payment_method'] = strtolower($this->paymentHelper->getPaymentKeyByMop($nnPaymentData['mop']));
-
+        
+	    $nnPaymentData['forced_onhold'] = '1';
         $this->executePayment($nnPaymentData);
         
         if($nnPaymentData['payment_id'] == '59' && !empty($nnPaymentData['cp_checkout_token']))
