@@ -3,17 +3,12 @@ $(document).ready( function() {
     var max_year = current_date.getFullYear() - 18;
     var min_year = current_date.getFullYear() - 91;    
     var  userAgent = navigator.userAgent || navigator.vendor || window.opera;
-    var isAndroid = false;
-	//Check mobile device is Android
-	if (/android/i.test(userAgent)) {				
-		$("#nn_guarantee_date").attr( 'type', 'number');
-		isAndroid = true;
-	}  
+    
     $("#nn_guarantee_date").on("keypress textInput",function (e)
     {
         var keyCode = e.which || e.originalEvent.data.charCodeAt(0);
         var expr = String.fromCharCode(keyCode);  
-        if ( isNaN( expr ) || ( isAndroid && $(this).val().length > 1 ) )
+        if ( isNaN( expr ) || ( /android/i.test(userAgent) && $(this).val().length > 1 ) )
         {			
           e.preventDefault();
         }
