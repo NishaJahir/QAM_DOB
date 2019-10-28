@@ -72,7 +72,7 @@
                "required":false,
                "label":"Config.forcedOnholdOrderStatusLabel",
                "options":{  
-                  "defaultValue":"2"
+                  "defaultValue":"3"
                }
             },
             "novalnet_onhold_confirmation_status":{  
