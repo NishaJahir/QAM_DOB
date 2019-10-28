@@ -2,20 +2,27 @@ $(document).ready( function() {
     var current_date = new Date();      
     var max_year = current_date.getFullYear() - 18;
     var min_year = current_date.getFullYear() - 91;    
-      
-    $("#nn_guarantee_date").on("input",function (e)
+    var  userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    var isAndroid = false;
+	//Check mobile device is Android
+	if (/android/i.test(userAgent)) {				
+		$("#nn_guarantee_date").attr( 'type', 'number');
+		isAndroid = true;
+	}  
+    $("#nn_guarantee_date").on("keypress textInput",function (e)
     {
-        var exp = String.fromCharCode(e.which);  
-        if ( isNaN( exp ) )
-        {
+        var keyCode = e.which || e.originalEvent.data.charCodeAt(0);
+        var expr = String.fromCharCode(keyCode);  
+        if ( isNaN( expr ) || ( isAndroid && $(this).val().length > 1 ) )
+        {			
           e.preventDefault();
         }
             var day_val = $('#nn_guarantee_date').val();
             if( day_val.length == 1 ) {
-                    if( (exp > -1 && day_val.charAt(0) > 3) || (exp == 0 && day_val.charAt(0) == 0) || (exp > 1 && day_val.charAt(0) == 3) )  {
+                    if( (expr > -1 && day_val.charAt(0) > 3) || (expr == 0 && day_val.charAt(0) == 0) || (expr > 1 && day_val.charAt(0) == 3) )  {
                     return false;
                 }
-            }          
+            }        
     });
     
     $('#nn_guarantee_date').on('blur', function() {
