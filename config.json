@@ -1000,14 +1000,6 @@
                   "defaultValue":""
                }
             },
-            "novalnet_ideal_payment_name":{  
-               "type":"inputText",
-               "required":false,
-               "label":"Config.paymentNameLabel",
-               "options":{  
-                  "defaultValue":""
-               }
-            },
             "novalnet_ideal_description":{  
                "type":"inputText",
                "required":false,
