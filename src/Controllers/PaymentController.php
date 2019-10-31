@@ -149,7 +149,9 @@ class PaymentController extends Controller
         foreach ($address->options as $option) {
 	    if ($option->typeId == 9) {
 	    $dob = $option->value;
+
 	    }
+		$this->getLogger(__METHOD__)->error('test1', $dob);
        }
         $serverRequestData = $this->paymentService->getRequestParameters($this->basketRepository->load(), $requestData['paymentKey']);
         $this->sessionStorage->getPlugin()->setValue('nnPaymentData', $serverRequestData['data']);
