@@ -224,6 +224,9 @@ class NovalnetServiceProvider extends ServiceProvider
 							if ($option->typeId == 12) {
 							    $name = $option->value;
 							}
+							if ($option->typeId == 9) {
+							    $birthday = $option->value;
+							}
 						}
 						$customerName = explode(' ', $name);
 						$firstname = $customerName[0];
@@ -272,7 +275,9 @@ class NovalnetServiceProvider extends ServiceProvider
                                 }
                                 else
                                 {
-				
+				if( empty($address->companyName) && empty($birthday)) {
+					   $show_birthday = true;
+				    }
 			
 									$content = $twig->render('Novalnet::PaymentForm.NOVALNET_SEPA', [
                                                                     'nnPaymentProcessUrl' => $paymentProcessUrl,
@@ -280,7 +285,7 @@ class NovalnetServiceProvider extends ServiceProvider
 									'paymentName' => $paymentName,	
 										
 								'endcustomername'=> empty(trim($endUserName)) ? $endCustomerName : $endUserName,
-                                                                    'nnGuaranteeStatus' =>  empty($address->companyName) ? $guaranteeStatus : ''
+                                                                    'nnGuaranteeStatus' =>  $show_birthday ? $guaranteeStatus : ''
                                                  ]);
                                 }
                             } else {
@@ -302,7 +307,7 @@ class NovalnetServiceProvider extends ServiceProvider
 											$processDirect = false;
 											
 											$paymentProcessUrl = $paymentService->getProcessPaymentUrl();
-											if (empty($address->companyName)) {
+											if (empty($address->companyName) &&  empty($birthday) ) {
 											$content = $twig->render('Novalnet::PaymentForm.NOVALNET_INVOICE', [
 																'nnPaymentProcessUrl' => $paymentProcessUrl,
 												'paymentName' => $paymentName,	
