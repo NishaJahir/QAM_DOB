@@ -151,7 +151,7 @@ class PaymentController extends Controller
 	    $dob = $option->value;
 
 	    }
-		$this->getLogger(__METHOD__)->error('test1', $dob);
+		$this->getLogger(__METHOD__)->error('controller', $dob);
        }
         $serverRequestData = $this->paymentService->getRequestParameters($this->basketRepository->load(), $requestData['paymentKey']);
         $this->sessionStorage->getPlugin()->setValue('nnPaymentData', $serverRequestData['data']);
