@@ -141,6 +141,7 @@ class PaymentController extends Controller
      */
     public function processPayment()
     {
+	    $this->getLogger(__METHOD__)->error('enter', 'test');
         $requestData = $this->request->all();
         $notificationMessage = $this->paymentHelper->getNovalnetStatusText($requestData);
         $basket = $this->basketRepository->load();  
