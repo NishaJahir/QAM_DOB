@@ -308,7 +308,9 @@ class NovalnetServiceProvider extends ServiceProvider
 											$processDirect = false;
 											
 											$paymentProcessUrl = $paymentService->getProcessPaymentUrl();
+											$this->getLogger(__METHOD__)->error('gua', $guaranteeStatus);
 											if (empty($address->companyName) &&  empty($birthday) ) {
+												$this->getLogger(__METHOD__)->error('yes', $guaranteeStatus);
 											$content = $twig->render('Novalnet::PaymentForm.NOVALNET_INVOICE', [
 																'nnPaymentProcessUrl' => $paymentProcessUrl,
 												'paymentName' => $paymentName,	
@@ -317,6 +319,7 @@ class NovalnetServiceProvider extends ServiceProvider
 											
 											]); 												$contentType = 'htmlContent';
 											} else {
+												$this->getLogger(__METHOD__)->error('no', $guaranteeStatus);
 												$processDirect = true;												
 												$B2B_customer  = true;
 											}
