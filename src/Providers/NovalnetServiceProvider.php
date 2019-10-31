@@ -227,7 +227,7 @@ class NovalnetServiceProvider extends ServiceProvider
 							if ($option->typeId == 9) {
 							    $birthday = $option->value;
 							}
-							$this->getLogger(__METHOD__)->error('test', $birthday);
+							$this->getLogger(__METHOD__)->error('provider', $birthday);
 						}
 						$customerName = explode(' ', $name);
 						$firstname = $customerName[0];
