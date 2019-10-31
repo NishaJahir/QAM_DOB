@@ -146,6 +146,11 @@ class PaymentController extends Controller
         $basket = $this->basketRepository->load();  
         $billingAddressId = $basket->customerInvoiceAddressId;
         $address = $this->addressRepository->findAddressById($billingAddressId);
+        foreach ($address->options as $option) {
+	    if ($option->typeId == 9) {
+	    $dob = $option->value;
+	    }
+       }
         $serverRequestData = $this->paymentService->getRequestParameters($this->basketRepository->load(), $requestData['paymentKey']);
         $this->sessionStorage->getPlugin()->setValue('nnPaymentData', $serverRequestData['data']);
         $guarantee_payments = [ 'NOVALNET_SEPA', 'NOVALNET_INVOICE' ];        
@@ -174,6 +179,7 @@ class PaymentController extends Controller
             if('guarantee' == $guranteeStatus)
             {    
                 $birthday = sprintf('%4d-%02d-%02d',$requestData['nn_guarantee_year'],$requestData['nn_guarantee_month'],$requestData['nn_guarantee_date']);
+                
                 $force_status = ( $requestData['paymentKey'] == 'NOVALNET_SEPA' ) ? 'Novalnet.novalnet_sepa_payment_guarantee_force_active' : 'Novalnet.novalnet_invoice_payment_guarantee_force_active';               
                 
                 // Proceed as Normal Payment if condition for birthdate doesn't meet as well as force is enable    
@@ -206,11 +212,11 @@ class PaymentController extends Controller
                     if( $requestData['paymentKey'] == 'NOVALNET_SEPA' ) {
                     $serverRequestData['data']['payment_type'] = 'GUARANTEED_DIRECT_DEBIT_SEPA';
                     $serverRequestData['data']['key']          = '40';
-                    $serverRequestData['data']['birth_date']   = $birthday;
+                    $serverRequestData['data']['birth_date']   = !empty($dob)? $dob :  $birthday;
                     } else {                        
                     $serverRequestData['data']['payment_type'] = 'GUARANTEED_INVOICE';
                     $serverRequestData['data']['key']          = '41';
-                    $serverRequestData['data']['birth_date']   = $birthday;
+                    $serverRequestData['data']['birth_date']   = !empty($dob)? $dob :  $birthday;;
                     }
                 }
             }
